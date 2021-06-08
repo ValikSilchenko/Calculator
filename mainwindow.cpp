@@ -1,8 +1,9 @@
 #include "mainwindow.h"
 #include "calculator.h"
 #include "functions.cpp"
-#include "cmath"
-#include "QString"
+#include <cmath>
+#include <QString>
+#include <QAbstractButton>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     QIcon icon = QIcon("calcul.png");
     this->setWindowIcon(icon);
+    connect(ui->resultButton, SIGNAL(clicked()), this, SLOT(get_res()));
+    connect(ui->binaryBtnGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(binary(QAbstractButton*)));
 }
 
 MainWindow::~MainWindow()
@@ -19,7 +22,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_binaryBtnGroup_buttonClicked(QAbstractButton * button){
+void MainWindow::binary(QAbstractButton * button){
     if (ui->label->text() == "error") on_clearButton_clicked();
 
     if (ui->label->text().contains(".") && ! sqrtPressed && ! reversePressed && ! sqrPressed && ! f){  // converting QString->Double->QString to exclude float value with zero or empty value after dot
@@ -107,7 +110,7 @@ void MainWindow::on_delLastSymbBtn_clicked(){
     }
 }
 
-void MainWindow::on_resultButton_clicked()
+void MainWindow::get_res()
 {
     bool tempF = false;
     ui->label->setText(QString::number(ui->label->text().toDouble()));  // converting QString->double->QString to exclude

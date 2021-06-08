@@ -23,9 +23,7 @@ private slots:
 
     void on_delLastSymbBtn_clicked();
 
-    void on_binaryBtnGroup_buttonClicked(QAbstractButton * button);
-
-    void on_resultButton_clicked();
+    void binary(QAbstractButton * button);
 
     void on_negativeButton_clicked();
 
@@ -46,6 +44,8 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_switchToMain_clicked();
+
+    void get_res();
 
 private:
     Ui::MainWindow *ui;
