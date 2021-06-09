@@ -66,15 +66,17 @@ private slots:
 
     void cubeRoot();
 
+    void ln();
+
+    void lg();
+
 private:
     Ui::MainWindow *ui;
     QString sign = "";  // variable with sign value
     QString expression = "";  // variable with all actions before clicking on 'resultButton'
     bool f = false;  // flag that indicates any of 'binaryButtons' is clicked
     bool resPressed = false;  // flag that indicates 'resultButton' is clicked
-//    bool sqrtPressed = false;  // flag that indicates 'sqrtButton' is clicked
-//    bool sqrPressed = false;  // flag that indicates 'sqrButton' is clicked
-//    bool reversePressed = false;  // flag that indicates 'reverseButton' is clicked
+
     bool specialBtnPressed = false;
     double sum = 0;  // sum of all values entered before 'resultButton' is clicked
 };

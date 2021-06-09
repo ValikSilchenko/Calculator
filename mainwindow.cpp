@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "calculator.h"
 #include "functions.cpp"
-#include <cmath>
-#include <QString>
 #include <QAbstractButton>
 
 
@@ -13,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     QIcon icon = QIcon("calcul.png");
     this->setWindowIcon(icon);
+
+    {
     connect(ui->resultButton, SIGNAL(clicked()), this, SLOT(get_res()));
     connect(ui->binaryBtnGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(binary(QAbstractButton*)));
     connect(ui->piButton, SIGNAL(clicked()), this, SLOT(getConst()));
@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->tenInPowerButton, SIGNAL(clicked()), this, SLOT(tenInN()));
     connect(ui->twoInPowerButton, SIGNAL(clicked()), this, SLOT(twoInN()));
     connect(ui->eInPowerButton, SIGNAL(clicked()), this, SLOT(eInN()));
+    connect(ui->decLogButton, SIGNAL(clicked()), this, SLOT(lg()));
+    connect(ui->natLogButton, SIGNAL(clicked()), this, SLOT(ln()));
+    }
 }
 
 MainWindow::~MainWindow()
@@ -71,7 +74,7 @@ void MainWindow::binary(QAbstractButton * button){
         resPressed = false;
     }
 
-    if (ui->label->text().toDouble() < 0 && ! resPressed) expression = ui->optLabel->text() + "(" + ui->label->text() + ")";
+    if (ui->label->text().toDouble() < 0 && ! resPressed && ! specialBtnPressed) expression = ui->optLabel->text() + "(" + ui->label->text() + ")";
 
     if (ui->label->text() == "0" && expression == "") expression = "0";
 
@@ -494,19 +497,19 @@ void MainWindow::cubeRoot()
     double temp = abs(ui->label->text().toDouble());
     if (sign == ""){
         if (ui->label->text().toDouble() < 0) {
-           sum = -pow(temp, (1.0/3));  // checking that only one number entered
+           sum = -(normalRound(pow(temp, (1.0/3))));  // checking that only one number entered
         }
         else {
-           sum = pow(temp, (1.0/3));
+           sum = normalRound(pow(temp, (1.0/3)));
         }
     }
     else {  // esle getting last entered sign
         sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
         if (ui->label->text().toDouble() < 0) {
-           sum = simpleFunctions(sign, sum, -pow(temp, (1.0/3)));
+           sum = simpleFunctions(sign, sum, -(normalRound(pow(temp, (1.0/3)))));
         }
         else {
-           sum = simpleFunctions(sign, sum, pow(temp, (1.0/3)));
+           sum = simpleFunctions(sign, sum, normalRound(pow(temp, (1.0/3))));
         }
     }
 
@@ -514,12 +517,12 @@ void MainWindow::cubeRoot()
 
     expression = ui->optLabel->text() + "∛(" + ui->label->text();
     expression += ")";
-    if (ui->label->text().toDouble() <0) {
-        ui->label->setText(QString::number(-(pow(temp, (1.0/3)))));
+    if (ui->label->text().toDouble() < 0) {
+        ui->label->setText(QString::number(-(normalRound(pow(temp, (1.0/3))))));
         ui->optLabel->setText(expression);
     }
     else {
-        ui->label->setText(QString::number(pow(temp, (1.0/3))));
+        ui->label->setText(QString::number(normalRound(pow(temp, (1.0/3)))));
         ui->optLabel->setText(expression);
     }
     specialBtnPressed = true;
@@ -530,7 +533,7 @@ void MainWindow::tenInN()
     if (ui->label->text()!=""){
         double n = ui->label->text().toDouble();
         double y = pow(10, n);
-        ui->label->text() = QString::number(y);
+        ui->label->setText(QString::number(y));
     }
 }
 
@@ -539,7 +542,7 @@ void MainWindow::eInN()
     if (ui->label->text()!=""){
         double n = ui->label->text().toDouble();
         double y = pow(M_E, n);
-        ui->label->text() = QString::number(y);
+        ui->label->setText(QString::number(y));
     }
 }
 
@@ -548,11 +551,64 @@ void MainWindow::twoInN()
     if (ui->label->text()!=""){
         double n = ui->label->text().toDouble();
         double y = pow(2, n);
-        ui->label->text() = QString::number(y);
+        ui->label->setText(QString::number(y));
     }
 }
 
 void MainWindow::xInN()
 {
 
+}
+
+void MainWindow::ln()
+{
+    check();
+
+    if (ui->label->text().toDouble() > 0 ) {  // checking for a negaive number in ln
+        if (sign == "") sum = log(ui->label->text().toDouble());
+        else {
+            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+            sum = simpleFunctions(sign, sum, log(ui->label->text().toDouble()));
+        }
+
+        // setting sqrt sign and braces around number
+        if (ui->label->text() == "0" && expression != "0") expression += ui->natLogButton->text() + "(0)";
+        else {
+            expression.insert(expression.length() - ui->label->text().length(), ui->natLogButton->text());
+            expression.insert(expression.length() - ui->label->text().length(), "(");
+            expression += ")";
+        }
+        ui->label->setText(QString::number(log(ui->label->text().toDouble())));
+        ui->optLabel->setText(expression);
+        specialBtnPressed = true;
+    } else {
+        on_clearButton_clicked();
+        ui->label->setText("error");  // setting error text if negative number in ln
+    }
+}
+void MainWindow::lg()
+{
+    check();
+
+    if (ui->label->text().toDouble() > 0 ) {  // checking for a negaive number in ln
+        if (sign == "") sum = log10(ui->label->text().toDouble());
+        else {
+            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+            sum = simpleFunctions(sign, sum, log10(ui->label->text().toDouble()));
+        }
+
+        // setting sqrt sign and braces around number
+        if (ui->label->text() == "0" && expression != "0") expression += ui->decLogButton->text() + "(0)";
+        else {
+            expression.insert(expression.length() - ui->label->text().length(), ui->decLogButton->text());
+            expression.insert(expression.length() - ui->label->text().length(), "(");
+            expression += ")";
+        }
+        ui->label->setText(QString::number(log10(ui->label->text().toDouble())));
+        ui->optLabel->setText(expression);
+        specialBtnPressed = true;
+    } else {
+        on_clearButton_clicked();
+        ui->label->setText("error");  // setting error text if negative number in ln
+    }
 }

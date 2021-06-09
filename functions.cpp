@@ -1,4 +1,5 @@
 #include <QString>
+#include <cmath>
 
 
 double simpleFunctions(QString sign, double first, double second) {
@@ -9,9 +10,13 @@ double simpleFunctions(QString sign, double first, double second) {
        return 1;
 }
 
-long long factorial(unsigned n) {
-    long long res = 1;
+unsigned long long factorial(unsigned n) {
+    unsigned long long res = 1;
     for (unsigned i = 1; i < n; i++)
         res *= i;
     return res;
+}
+
+double normalRound(double num, unsigned k = 5) {
+    return round(num * pow(10, k)) / pow(10, k);
 }
