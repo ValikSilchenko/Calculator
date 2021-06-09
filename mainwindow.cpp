@@ -61,7 +61,8 @@ void MainWindow::check() // checking and doing necessary actions
         }
 }
 
-void MainWindow::binary(QAbstractButton * button){
+void MainWindow::binary(QAbstractButton * button)
+{
     if (ui->label->text() == "error") on_clearButton_clicked();
 
     if (ui->label->text().contains(".") && ! specialBtnPressed && ! f){  // converting QString->Double->QString to exclude float value with zero or empty value after dot
@@ -99,7 +100,8 @@ void MainWindow::binary(QAbstractButton * button){
     f = true;
 }
 
-void MainWindow::on_digitsBtnGroup_buttonClicked(QAbstractButton * button){
+void MainWindow::on_digitsBtnGroup_buttonClicked(QAbstractButton * button)
+{
     if (resPressed || specialBtnPressed || ui->label->text() == "error") on_clearButton_clicked();
 
     if (expression == "" || ui->label->text() == "0") ui->label->clear();  // checking that entering value is first
@@ -114,7 +116,8 @@ void MainWindow::on_digitsBtnGroup_buttonClicked(QAbstractButton * button){
     expression = ui->optLabel->text() + ui->label->text();  // adding new label number to expression  variable
 }
 
-void MainWindow::on_clearButton_clicked(){
+void MainWindow::on_clearButton_clicked()
+{
     ui->label->clear();
     ui->label->setText("0");
     ui->optLabel->clear();
@@ -126,7 +129,8 @@ void MainWindow::on_clearButton_clicked(){
     expression = "";
 }
 
-void MainWindow::on_delLastSymbBtn_clicked(){
+void MainWindow::on_delLastSymbBtn_clicked()
+{
     if (ui->label->text() == "error") on_clearButton_clicked();
 
     if (! resPressed && !(specialBtnPressed)){
@@ -421,7 +425,8 @@ void MainWindow::on_pushButton_clicked() // calculating det
         ui->det_c_label->setText(QString::number(detc));
 }
 
-void MainWindow::on_pushButton_switchToMain_clicked(){
+void MainWindow::on_pushButton_switchToMain_clicked()
+{
     ui->stackedWidget->setCurrentIndex(0);
     this->setMinimumSize(QSize(551, 622));
     this->resize(551, 622);
@@ -591,7 +596,9 @@ void MainWindow::twoInN()
 
 void MainWindow::xInN()
 {
+    if (! twoParamsBtnPressed) {
 
+    }
 }
 
 void MainWindow::ln()
