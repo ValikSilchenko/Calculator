@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowIcon(icon);
     connect(ui->resultButton, SIGNAL(clicked()), this, SLOT(get_res()));
     connect(ui->binaryBtnGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(binary(QAbstractButton*)));
+    connect(ui->piButton, SIGNAL(clicked()), this, SLOT(getConst()));
+    connect(ui->eButton, SIGNAL(clicked()), this, SLOT(getConst()));
 }
 
 MainWindow::~MainWindow()
@@ -25,7 +27,7 @@ MainWindow::~MainWindow()
 void MainWindow::binary(QAbstractButton * button){
     if (ui->label->text() == "error") on_clearButton_clicked();
 
-    if (ui->label->text().contains(".") && ! sqrtPressed && ! reversePressed && ! sqrPressed && ! f){  // converting QString->Double->QString to exclude float value with zero or empty value after dot
+    if (ui->label->text().contains(".") && ! specialBtnPressed && ! f){  // converting QString->Double->QString to exclude float value with zero or empty value after dot
         ui->label->setText(QString::number(ui->label->text().toDouble()));
         expression = ui->optLabel->text() + ui->label->text();
     }
@@ -44,8 +46,8 @@ void MainWindow::binary(QAbstractButton * button){
     ui->optLabel->setText(expression + button->text());
 
     if (sign == "") sum = ui->label->text().toDouble();  // checking that only one value entered before sign
-    else if (! f){
-        if (! (sqrtPressed || sqrPressed || reversePressed)) {
+    else if (! f) {
+        if (!(specialBtnPressed)) {
             if (sign == "÷" && ui->label->text() == "0") {  // checking dividing by zero
                 on_clearButton_clicked();
                 ui->label->setText("error");
@@ -56,14 +58,12 @@ void MainWindow::binary(QAbstractButton * button){
 
     // setting to zero all flags except "f" that indicates binaryBitton clicked
 
-    sqrtPressed = false;
-    sqrPressed = false;
-    reversePressed = false;
+    specialBtnPressed = false;
     f = true;
 }
 
 void MainWindow::on_digitsBtnGroup_buttonClicked(QAbstractButton * button){
-    if (resPressed || sqrtPressed || sqrPressed || reversePressed || ui->label->text() == "error") on_clearButton_clicked();
+    if (resPressed || specialBtnPressed || ui->label->text() == "error") on_clearButton_clicked();
 
     if (expression == "" || ui->label->text() == "0") ui->label->clear();  // checking that entering value is first
     else  if (f)  {  // checking that binaryButton was clicked
@@ -84,9 +84,7 @@ void MainWindow::on_clearButton_clicked(){
     sign = "";
     f = false;
     resPressed = false;
-    sqrtPressed = false;
-    sqrPressed = false;
-    reversePressed = false;
+    specialBtnPressed = false;
     sum = 0;
     expression = "";
 }
@@ -94,7 +92,7 @@ void MainWindow::on_clearButton_clicked(){
 void MainWindow::on_delLastSymbBtn_clicked(){
     if (ui->label->text() == "error") on_clearButton_clicked();
 
-    if (! resPressed && ! sqrtPressed && ! sqrPressed && ! reversePressed){
+    if (! resPressed && !(specialBtnPressed)){
         if (ui->label->text() != "0"){
             int lenght = ui->label->text().length();
             QString new_str = "";  // variable with new string
@@ -117,7 +115,7 @@ void MainWindow::get_res()
 
     if (! resPressed && ui->optLabel->text() != "") {  // checking that expression exist
 
-        if (sign == "" && ! sqrtPressed && ! reversePressed && ! sqrPressed && !("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {  // getting last entered sign if it's not in variable
+        if (sign == "" && !(specialBtnPressed) && !("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {  // getting last entered sign if it's not in variable
             sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
             expression = ui->optLabel->text() + ui->label->text();
         }
@@ -125,7 +123,7 @@ void MainWindow::get_res()
         if (ui->label->text().toDouble() < 0) expression = ui->optLabel->text() + "(" + ui->label->text() + ")";  // setting braces for numbers < 0
         ui->optLabel->setText(expression);
 
-        if (! (sqrtPressed || sqrPressed || reversePressed))
+        if (! specialBtnPressed)
             if (sign == "÷" && ui->label->text() == "0") {  // checking for dividing by zero
                 on_clearButton_clicked();
                 ui->label->setText("error");
@@ -135,16 +133,14 @@ void MainWindow::get_res()
         }
 
         if (!(ui->label->text() == "error")) {
-            if (sign == "" && !(sqrtPressed) && !(sqrPressed) && !(reversePressed))  ui->optLabel->setText(ui->optLabel->text() +ui->label->text());
+            if (sign == "" && !(specialBtnPressed))  ui->optLabel->setText(ui->optLabel->text() +ui->label->text());
 
             ui->optLabel->setText(ui->optLabel->text() + "=");
             ui->label->setText(QString::number(sum));
         }
     }
     if (tempF) {
-        sqrtPressed = false;
-        sqrPressed = false;
-        reversePressed = false;
+        specialBtnPressed = false;
     }
     resPressed = true;
 }
@@ -157,7 +153,7 @@ void MainWindow::on_negativeButton_clicked()
         ui->label->setText("0");
         f = false;
     }  else {
-        if (sqrPressed || sqrtPressed || reversePressed) ui->optLabel->clear();
+        if (specialBtnPressed) ui->optLabel->clear();
 
         if (resPressed) {
             double tempRes = sum;
@@ -174,7 +170,7 @@ void MainWindow::on_negativeButton_clicked()
 
 void MainWindow::on_floatButton_clicked()
 {
-    if (resPressed || sqrtPressed || sqrPressed || reversePressed || ui->label->text() == "error") on_clearButton_clicked();
+    if (resPressed || specialBtnPressed || ui->label->text() == "error") on_clearButton_clicked();
 
     if (f) {
         if (expression != "") sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
@@ -200,7 +196,7 @@ void MainWindow::on_sqrtButton_clicked()
         expression = ui->label->text();
     }
 
-    if (sqrtPressed || sqrPressed || reversePressed) {
+    if (specialBtnPressed) {
         double tempRes = ui->label->text().toDouble();
         on_clearButton_clicked();
         ui->label->setText(QString::number(tempRes));
@@ -229,7 +225,7 @@ void MainWindow::on_sqrtButton_clicked()
         }
         ui->label->setText(QString::number(sqrt(ui->label->text().toDouble())));
         ui->optLabel->setText(expression);
-        sqrtPressed = true;
+        specialBtnPressed = true;
     } else {
         on_clearButton_clicked();
         ui->label->setText("error");  // setting error text if negative number in sqrt
@@ -248,7 +244,7 @@ void MainWindow::on_sqrButton_clicked()
         expression = ui->label->text();
     }
 
-    if (sqrPressed || sqrtPressed || reversePressed) {
+    if (specialBtnPressed || specialBtnPressed || specialBtnPressed) {
         double tempRes = ui->label->text().toDouble();
         on_clearButton_clicked();
         ui->label->setText(QString::number(tempRes));
@@ -273,7 +269,7 @@ void MainWindow::on_sqrButton_clicked()
     expression += ")";
     ui->label->setText(QString::number(pow(ui->label->text().toDouble(), 2)));
     ui->optLabel->setText(expression);
-    sqrPressed = true;
+    specialBtnPressed = true;
 }
 
 void MainWindow::on_reverseButton_clicked()
@@ -288,7 +284,7 @@ void MainWindow::on_reverseButton_clicked()
         expression = ui->label->text();
     }
 
-    if (reversePressed || sqrPressed || sqrtPressed) {
+    if (specialBtnPressed) {
         double tempRes = ui->label->text().toDouble();
         on_clearButton_clicked();
         ui->label->setText(QString::number(tempRes));
@@ -309,7 +305,7 @@ void MainWindow::on_reverseButton_clicked()
             expression += ")";
             ui->label->setText(QString::number(1 / ui->label->text().toDouble()));
             ui->optLabel->setText(expression);
-            reversePressed = true;
+            specialBtnPressed = true;
         } else {
             on_clearButton_clicked();
             ui->label->setText("error");  // setting error text in label if try divide by zero
@@ -425,7 +421,21 @@ void MainWindow::on_pushButton_clicked()  // calculating det
 
 void MainWindow::on_pushButton_switchToMain_clicked(){
     ui->stackedWidget->setCurrentIndex(0);
-    this->setMinimumSize(287, 530);
-    this->resize( 287, 530);
+    this->setMinimumSize(QSize(551, 622));
+    this->resize(551, 622);
     this->setMaximumSize(16777215, 16777215);
+}
+
+void MainWindow::getConst(){
+    if (ui->label->text() == "error" || specialBtnPressed || resPressed) on_clearButton_clicked();
+
+    if (this->sender() == ui->piButton) {
+        ui->label->setText(QString::number(M_PI));
+        expression += QString::number(M_PI);
+    }
+    else if (this->sender() == ui->eButton) {
+        ui->label->setText(QString::number(M_E));
+        expression += QString::number(M_E);
+    }
+
 }
