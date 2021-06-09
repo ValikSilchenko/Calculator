@@ -46,7 +46,7 @@ private slots:
 
     void on_pushButton_switchToMain_clicked();
 
-    void get_res();
+    void getRes();
 
     void getConst();
 

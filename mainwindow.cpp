@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowIcon(icon);
 
     {
-    connect(ui->resultButton, SIGNAL(clicked()), this, SLOT(get_res()));
+    connect(ui->resultButton, SIGNAL(clicked()), this, SLOT(getRes()));
     connect(ui->binaryBtnGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(binary(QAbstractButton*)));
     connect(ui->piButton, SIGNAL(clicked()), this, SLOT(getConst()));
     connect(ui->eButton, SIGNAL(clicked()), this, SLOT(getConst()));
@@ -143,19 +143,20 @@ void MainWindow::on_delLastSymbBtn_clicked(){
     }
 }
 
-void MainWindow::get_res()
+void MainWindow::getRes()
 {
     bool tempF = false;
-    ui->label->setText(QString::number(ui->label->text().toDouble()));  // converting QString->double->QString to exclude
+    ui->label->setText(QString::number(ui->label->text().toDouble()));  // converting QString->double->QString to exclude x.0
 
     if (! resPressed && ui->optLabel->text() != "") {  // checking that expression exist
 
-        if (sign == "" && !(specialBtnPressed) && !("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {  // getting last entered sign if it's not in variable
+        if (sign == "" && !(specialBtnPressed) && !("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1]
+                                                    && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {  // getting last entered sign if it's not in variable
             sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
             expression = ui->optLabel->text() + ui->label->text();
         }
 
-        if (ui->label->text().toDouble() < 0) expression = ui->optLabel->text() + "(" + ui->label->text() + ")";  // setting braces for numbers < 0
+        if (ui->label->text().toDouble() < 0 && ! specialBtnPressed) expression = ui->optLabel->text() + "(" + ui->label->text() + ")";  // setting braces for numbers < 0
         ui->optLabel->setText(expression);
 
         if (! specialBtnPressed)
@@ -548,6 +549,8 @@ void MainWindow::eInN()
 
 void MainWindow::twoInN()
 {
+    check();
+
     if (ui->label->text()!=""){
         double n = ui->label->text().toDouble();
         double y = pow(2, n);
