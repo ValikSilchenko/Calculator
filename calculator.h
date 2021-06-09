@@ -174,8 +174,7 @@ public:
             line1_1->setGeometry(QRect(30, 40, 51, 51));
             line1_1->setStyleSheet(QString::fromUtf8("text-align: center;\n"
                                                                                     "\n"
-                                                                                    ""
-"font-size: 25px;"));
+                                                                                    "font-size: 25px;"));
             line1_1->setAlignment(Qt::AlignCenter);
             line1_2 = new QLineEdit(page2);
             line1_2->setObjectName(QString::fromUtf8("line1_2"));
@@ -469,12 +468,15 @@ public:
 
             pushButton_switch = new QPushButton(page);
             pushButton_switch->setObjectName(QString::fromUtf8("pushButton_switch"));
+
             QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
             sizePolicy.setHorizontalStretch(0);
             sizePolicy.setVerticalStretch(0);
             sizePolicy.setHeightForWidth(pushButton_switch->sizePolicy().hasHeightForWidth());
+
             pushButton_switch->setSizePolicy(sizePolicy);
             pushButton_switch->setMaximumSize(QSize(239, 59));
+
 
             layoutWithSwitchBtn->addWidget(pushButton_switch, 0, 0, 1, 1);
 
@@ -532,6 +534,7 @@ public:
             layoutWithOptButtons = new QGridLayout();
             layoutWithOptButtons->setSpacing(1);
             layoutWithOptButtons->setObjectName(QString::fromUtf8("layoutWithOptButtons"));
+
             cubeButton = new QPushButton(page);
             cubeButton->setObjectName(QString::fromUtf8("cubeButton"));
             sizePolicy.setHeightForWidth(cubeButton->sizePolicy().hasHeightForWidth());
@@ -540,8 +543,8 @@ public:
             cubeButton->setMaximumSize(QSize(16777215, 90));
             cubeButton->setFont(font);
             cubeButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(cubeButton, 0, 0, 1, 1);
 
@@ -553,8 +556,8 @@ public:
             sqrButton->setMaximumSize(QSize(16777215, 90));
             sqrButton->setFont(font);
             sqrButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(sqrButton, 0, 1, 1, 1);
 
@@ -566,8 +569,8 @@ public:
             cubeRootButton->setMaximumSize(QSize(16777215, 90));
             cubeRootButton->setFont(font);
             cubeRootButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(cubeRootButton, 1, 0, 1, 1);
 
@@ -579,8 +582,8 @@ public:
             sqrtButton->setMaximumSize(QSize(16777215, 90));
             sqrtButton->setFont(font);
             sqrtButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(sqrtButton, 1, 1, 1, 1);
 
@@ -592,8 +595,8 @@ public:
             twoInPowerButton->setMaximumSize(QSize(16777215, 90));
             twoInPowerButton->setFont(font);
             twoInPowerButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(twoInPowerButton, 2, 0, 1, 1);
 
@@ -605,8 +608,8 @@ public:
             rootButton->setMaximumSize(QSize(16777215, 90));
             rootButton->setFont(font);
             rootButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(rootButton, 2, 1, 1, 1);
 
@@ -618,8 +621,8 @@ public:
             eInPowerButton->setMaximumSize(QSize(16777215, 90));
             eInPowerButton->setFont(font);
             eInPowerButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(eInPowerButton, 3, 0, 1, 1);
 
@@ -631,8 +634,8 @@ public:
             natLogButton->setMaximumSize(QSize(16777215, 90));
             natLogButton->setFont(font);
             natLogButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(natLogButton, 3, 1, 1, 1);
 
@@ -644,8 +647,8 @@ public:
             powerButton->setMaximumSize(QSize(16777215, 90));
             powerButton->setFont(font);
             powerButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(powerButton, 4, 0, 1, 1);
 
@@ -657,8 +660,8 @@ public:
             decLogButton->setMaximumSize(QSize(16777215, 90));
             decLogButton->setFont(font);
             decLogButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(decLogButton, 4, 1, 1, 1);
 
@@ -670,8 +673,8 @@ public:
             tenInPowerButton->setMaximumSize(QSize(16777215, 90));
             tenInPowerButton->setFont(font);
             tenInPowerButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(tenInPowerButton, 5, 0, 1, 1);
 
@@ -683,8 +686,8 @@ public:
             logButton->setMaximumSize(QSize(16777215, 90));
             logButton->setFont(font);
             logButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithOptButtons->addWidget(logButton, 5, 1, 1, 1);
 
@@ -702,8 +705,8 @@ public:
             moduleButton->setMaximumSize(QSize(16777215, 90));
             moduleButton->setFont(font);
             moduleButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(moduleButton, 1, 3, 1, 1);
 
@@ -715,8 +718,8 @@ public:
             eButton->setMaximumSize(QSize(16777215, 90));
             eButton->setFont(font);
             eButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(eButton, 1, 1, 1, 2);
 
@@ -731,8 +734,8 @@ public:
             font2.setPointSize(17);
             factButton->setFont(font2);
             factButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(factButton, 2, 2, 1, 2);
 
@@ -744,8 +747,8 @@ public:
             piButton->setMaximumSize(QSize(16777215, 90));
             piButton->setFont(font);
             piButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                            "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                            "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(piButton, 1, 0, 1, 1);
 
@@ -757,8 +760,8 @@ public:
             reverseButton->setMaximumSize(QSize(16777215, 90));
             reverseButton->setFont(font);
             reverseButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(reverseButton, 1, 4, 1, 1);
 
@@ -773,9 +776,8 @@ public:
             font3.setPointSize(13);
             clearButton->setFont(font3);
             clearButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}\n"
-    ""));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}\n"));
 
             layoutWithSpecialBtns->addWidget(clearButton, 0, 0, 1, 3);
 
@@ -787,8 +789,8 @@ public:
             rightBracketButton->setMaximumSize(QSize(16777215, 90));
             rightBracketButton->setFont(font);
             rightBracketButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(rightBracketButton, 2, 1, 1, 1);
 
@@ -800,8 +802,8 @@ public:
             leftBracketButton->setMaximumSize(QSize(16777215, 90));
             leftBracketButton->setFont(font);
             leftBracketButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(leftBracketButton, 2, 0, 1, 1);
 
@@ -819,8 +821,8 @@ public:
             font4.setPointSize(20);
             pushButton_div->setFont(font4);
             pushButton_div->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(pushButton_div, 2, 4, 1, 1);
 
@@ -835,8 +837,8 @@ public:
             font5.setPointSize(12);
             delLastSymbBtn->setFont(font5);
             delLastSymbBtn->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithSpecialBtns->addWidget(delLastSymbBtn, 0, 3, 1, 2);
 
@@ -858,7 +860,7 @@ public:
             font6.setPointSize(14);
             negativeButton->setFont(font6);
             negativeButton->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                                "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(negativeButton, 3, 0, 1, 1);
 
@@ -872,7 +874,7 @@ public:
             pushButton_0->setMinimumSize(QSize(61, 61));
             pushButton_0->setFont(font3);
             pushButton_0->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                                "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_0, 3, 1, 1, 1);
 
@@ -884,7 +886,7 @@ public:
             pushButton_6->setMinimumSize(QSize(61, 61));
             pushButton_6->setFont(font3);
             pushButton_6->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                                "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_6, 1, 2, 1, 1);
 
@@ -899,8 +901,8 @@ public:
             font7.setPointSize(17);
             pushButton_minus->setFont(font7);
             pushButton_minus->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithMainBtns->addWidget(pushButton_minus, 1, 3, 1, 1);
 
@@ -912,7 +914,7 @@ public:
             pushButton_7->setMinimumSize(QSize(61, 61));
             pushButton_7->setFont(font3);
             pushButton_7->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                                "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_7, 2, 0, 1, 1);
 
@@ -924,8 +926,8 @@ public:
             pushButton_plus->setMinimumSize(QSize(61, 61));
             pushButton_plus->setFont(font7);
             pushButton_plus->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithMainBtns->addWidget(pushButton_plus, 2, 3, 1, 1);
 
@@ -937,7 +939,7 @@ public:
             pushButton_3->setMinimumSize(QSize(61, 61));
             pushButton_3->setFont(font3);
             pushButton_3->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                                "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_3, 0, 2, 1, 1);
 
@@ -949,7 +951,7 @@ public:
             pushButton_8->setMinimumSize(QSize(61, 61));
             pushButton_8->setFont(font3);
             pushButton_8->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                               "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_8, 2, 1, 1, 1);
 
@@ -961,7 +963,7 @@ public:
             pushButton_5->setMinimumSize(QSize(61, 61));
             pushButton_5->setFont(font3);
             pushButton_5->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                                    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_5, 1, 1, 1, 1);
 
@@ -975,7 +977,7 @@ public:
             font8.setPointSize(15);
             floatButton->setFont(font8);
             floatButton->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                               "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(floatButton, 3, 2, 1, 1);
 
@@ -987,8 +989,8 @@ public:
             pushButton_mult->setMinimumSize(QSize(61, 61));
             pushButton_mult->setFont(font7);
             pushButton_mult->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgb(199, 199, 199);}\n"
-    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
-    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
+                                                                    "QPushButton:hover {background-color: rgb(181, 172, 222);}\n"
+                                                                    "QPushButton:clicked {background-color: rgb(173, 173, 173);}"));
 
             layoutWithMainBtns->addWidget(pushButton_mult, 0, 3, 1, 1);
 
@@ -1000,7 +1002,7 @@ public:
             pushButton_4->setMinimumSize(QSize(61, 61));
             pushButton_4->setFont(font3);
             pushButton_4->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                               "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_4, 1, 0, 1, 1);
 
@@ -1012,7 +1014,7 @@ public:
             pushButton_9->setMinimumSize(QSize(61, 61));
             pushButton_9->setFont(font3);
             pushButton_9->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                               "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_9, 2, 2, 1, 1);
 
@@ -1023,8 +1025,8 @@ public:
             resultButton->setMinimumSize(QSize(61, 61));
             resultButton->setFont(font7);
             resultButton->setStyleSheet(QString::fromUtf8("QPushButton {background-color: rgba(255, 106, 196, 180);}\n"
-    "QPushButton:hover {background-color: rgb(224, 136, 195);}\n"
-    "QPushButton:clicked {background-color: rgb(193, 112, 161);}"));
+                                                                "QPushButton:hover {background-color: rgb(224, 136, 195);}\n"
+                                                                "QPushButton:clicked {background-color: rgb(193, 112, 161);}"));
 
             layoutWithMainBtns->addWidget(resultButton, 3, 3, 1, 1);
 
@@ -1036,7 +1038,7 @@ public:
             pushButton_2->setMinimumSize(QSize(61, 61));
             pushButton_2->setFont(font3);
             pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                               "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_2, 0, 1, 1, 1);
 
@@ -1048,7 +1050,7 @@ public:
             pushButton_1->setMinimumSize(QSize(61, 61));
             pushButton_1->setFont(font3);
             pushButton_1->setStyleSheet(QString::fromUtf8("QPushButton:hover {background-color: rgb(237, 228, 239);}\n"
-    "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
+                                                               "QPushButton:clicked {background-color: rgb(207, 207, 207);}"));
 
             layoutWithMainBtns->addWidget(pushButton_1, 0, 0, 1, 1);
 

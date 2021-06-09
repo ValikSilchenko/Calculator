@@ -54,6 +54,18 @@ private slots:
 
     void module();
 
+    void tenInN();
+
+    void eInN();
+
+    void xInN();
+
+    void twoInN();
+
+    void cube();
+
+    void cubeRoot();
+
 private:
     Ui::MainWindow *ui;
     QString sign = "";  // variable with sign value

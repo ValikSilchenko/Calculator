@@ -19,6 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->eButton, SIGNAL(clicked()), this, SLOT(getConst()));
     connect(ui->factButton, SIGNAL(clicked()),this, SLOT(fact()));
     connect(ui->moduleButton, SIGNAL(clicked()), this, SLOT(module()));
+    connect(ui->cubeButton, SIGNAL(clicked()), this, SLOT(cube()));
+    connect(ui->cubeRootButton, SIGNAL(clicked()), this, SLOT(cubeRoot()));
+    connect(ui->tenInPowerButton, SIGNAL(clicked()), this, SLOT(tenInN()));
+    connect(ui->twoInPowerButton, SIGNAL(clicked()), this, SLOT(twoInN()));
+    connect(ui->eInPowerButton, SIGNAL(clicked()), this, SLOT(eInN()));
 }
 
 MainWindow::~MainWindow()
@@ -80,7 +85,7 @@ void MainWindow::binary(QAbstractButton * button){
                 ui->label->setText("error");
             } else sum = simpleFunctions(sign, sum, ui->label->text().toDouble());
         }
-        if (!(ui->label->text() == "error")) ui->label->setText(QString::number(sum));  // setting sum if not error
+        if (ui->label->text() != "error") ui->label->setText(QString::number(sum));  // setting sum if not error
     }
 
     // setting to zero all flags except "f" that indicates binaryBitton clicked
@@ -213,28 +218,7 @@ void MainWindow::on_floatButton_clicked()
 
 void MainWindow::on_sqrtButton_clicked()
 {
-    if (ui->label->text() == "error") on_clearButton_clicked();
-
-    if (resPressed) {
-        ui->optLabel->clear();
-        sign = "";
-        f = false;
-        resPressed = false;
-        expression = ui->label->text();
-    }
-
-    if (specialBtnPressed) {
-        double tempRes = ui->label->text().toDouble();
-        on_clearButton_clicked();
-        ui->label->setText(QString::number(tempRes));
-        expression = ui->label->text();
-    }
-
-    if (ui->optLabel->text() != "")  // getting sign if it's not in variable
-        if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
-            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
-            expression = ui->optLabel->text() + ui->label->text();
-        }
+    check();
 
     if (!(ui->label->text()[0] == "-")) {  // checking for a negaive number in sqrt
         if (sign == "") sum = sqrt(ui->label->text().toDouble());
@@ -261,28 +245,7 @@ void MainWindow::on_sqrtButton_clicked()
 
 void MainWindow::on_sqrButton_clicked()
 {
-    if (ui->label->text() == "error") on_clearButton_clicked();
-
-    if (resPressed) {
-        ui->optLabel->clear();
-        sign = "";
-        f = false;
-        resPressed = false;
-        expression = ui->label->text();
-    }
-
-    if (specialBtnPressed) {
-        double tempRes = ui->label->text().toDouble();
-        on_clearButton_clicked();
-        ui->label->setText(QString::number(tempRes));
-        expression = ui->label->text();
-    }
-
-    if (ui->optLabel->text() != "")
-        if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
-            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
-            expression = ui->optLabel->text() + ui->label->text();
-        }
+    check();
 
     if (sign == "") sum = pow(ui->label->text().toDouble(), 2);  // checking that only one number entered
     else {  // esle getting last entered sign
@@ -318,24 +281,24 @@ void MainWindow::on_reverseButton_clicked()
         expression = ui->label->text();
     }
 
-        if (ui->label->text() != "0"){  // checking for divide by zero
-            if (ui->optLabel->text() != "")
-                if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
-                    sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
-                    expression = ui->optLabel->text() + ui->label->text();
-                }
+    if (ui->label->text() != "0"){  // checking for divide by zero
+        if (ui->optLabel->text() != "")
+            if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
+                sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+                expression = ui->optLabel->text() + ui->label->text();
+            }
 
-            if (sign == "") sum = 1 / ui->label->text().toDouble();
-            else sum = simpleFunctions(sign, sum, 1 / ui->label->text().toDouble());
+        if (sign == "") sum = 1 / ui->label->text().toDouble();
+        else sum = simpleFunctions(sign, sum, 1 / ui->label->text().toDouble());
 
-            expression = ui->optLabel->text() + "1/(" + ui->label->text();
-            expression += ")";
-            ui->label->setText(QString::number(1 / ui->label->text().toDouble()));
-            ui->optLabel->setText(expression);
-            specialBtnPressed = true;
-        } else {
-            on_clearButton_clicked();
-            ui->label->setText("error");  // setting error text in label if try divide by zero
+        expression = ui->optLabel->text() + "1/(" + ui->label->text();
+        expression += ")";
+        ui->label->setText(QString::number(1 / ui->label->text().toDouble()));
+        ui->optLabel->setText(expression);
+        specialBtnPressed = true;
+    } else {
+        on_clearButton_clicked();
+        ui->label->setText("error");  // setting error text in label if try divide by zero
     }
 }
 
@@ -453,7 +416,8 @@ void MainWindow::on_pushButton_switchToMain_clicked(){
     this->setMaximumSize(16777215, 16777215);
 }
 
-void MainWindow::getConst(){
+void MainWindow::getConst()
+{
     if (ui->label->text() == "error" || specialBtnPressed || resPressed) on_clearButton_clicked();
 
     if (this->sender() == ui->piButton) {
@@ -467,29 +431,9 @@ void MainWindow::getConst(){
 
 }
 
-void MainWindow::fact() {
-    if (ui->label->text() == "error") on_clearButton_clicked();
-
-    if (resPressed) {
-        ui->optLabel->clear();
-        sign = "";
-        f = false;
-        resPressed = false;
-        expression = ui->label->text();
-    }
-
-    if (specialBtnPressed) {
-        double tempRes = ui->label->text().toDouble();
-        on_clearButton_clicked();
-        ui->label->setText(QString::number(tempRes));
-        expression = ui->label->text();
-    }
-
-    if (ui->optLabel->text() != "")  // getting sign if it's not in variable
-        if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
-            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
-            expression = ui->optLabel->text() + ui->label->text();
-        }
+void MainWindow::fact()
+{
+    check();
 
     if (ui->label->text()[0] == "-" || ui->label->text().contains(".")) {
         on_clearButton_clicked();
@@ -508,7 +452,8 @@ void MainWindow::fact() {
     specialBtnPressed = true;
 }
 
-void MainWindow::module() {
+void MainWindow::module()
+{
     check();
 
     if (sign == "") sum = abs(ui->label->text().toDouble());
@@ -521,4 +466,93 @@ void MainWindow::module() {
     ui->optLabel->setText(expression);
 
     specialBtnPressed = true;
+}
+
+void MainWindow::cube()
+{
+    check();
+
+    if (sign == "") sum = pow(ui->label->text().toDouble(), 3);  // checking that only one number entered
+    else {  // esle getting last entered sign
+        sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+        sum = simpleFunctions(sign, sum, pow(ui->label->text().toDouble(), 3));
+    }
+
+    if (expression == "") expression = "0";  // if nothing entered setting 0 in expression
+
+    expression = ui->optLabel->text() + "(" + ui->label->text();
+    expression += ")³";
+    ui->label->setText(QString::number(pow(ui->label->text().toDouble(), 3)));
+    ui->optLabel->setText(expression);
+    specialBtnPressed = true;
+}
+
+void MainWindow::cubeRoot()
+{
+    check();
+
+    double temp = abs(ui->label->text().toDouble());
+    if (sign == ""){
+        if (ui->label->text().toDouble() < 0) {
+           sum = -pow(temp, (1.0/3));  // checking that only one number entered
+        }
+        else {
+           sum = pow(temp, (1.0/3));
+        }
+    }
+    else {  // esle getting last entered sign
+        sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+        if (ui->label->text().toDouble() < 0) {
+           sum = simpleFunctions(sign, sum, -pow(temp, (1.0/3)));
+        }
+        else {
+           sum = simpleFunctions(sign, sum, pow(temp, (1.0/3)));
+        }
+    }
+
+    if (expression == "") expression = "0";  // if nothing entered setting 0 in expression
+
+    expression = ui->optLabel->text() + "∛(" + ui->label->text();
+    expression += ")";
+    if (ui->label->text().toDouble() <0) {
+        ui->label->setText(QString::number(-(pow(temp, (1.0/3)))));
+        ui->optLabel->setText(expression);
+    }
+    else {
+        ui->label->setText(QString::number(pow(temp, (1.0/3))));
+        ui->optLabel->setText(expression);
+    }
+    specialBtnPressed = true;
+}
+
+void MainWindow::tenInN()
+{
+    if (ui->label->text()!=""){
+        double n = ui->label->text().toDouble();
+        double y = pow(10, n);
+        ui->label->text() = QString::number(y);
+    }
+}
+
+void MainWindow::eInN()
+{
+    if (ui->label->text()!=""){
+        double n = ui->label->text().toDouble();
+        double y = pow(M_E, n);
+        ui->label->text() = QString::number(y);
+    }
+}
+
+void MainWindow::twoInN()
+{
+    if (ui->label->text()!=""){
+        double n = ui->label->text().toDouble();
+        double y = pow(2, n);
+        ui->label->text() = QString::number(y);
+    }
+}
+
+void MainWindow::xInN()
+{
+
 }
