@@ -1,5 +1,4 @@
 #include <QString>
-#include <list>
 
 
 double simpleFunctions(QString sign, double first, double second) {
@@ -10,10 +9,9 @@ double simpleFunctions(QString sign, double first, double second) {
        return 1;
 }
 
-std::list<std::list<long int>> triangularView(std::list<std::list<long int>> matrix) {
-
-}
-
-unsigned matrixRank(std::list<std::list<long int>> matrix) {
-
+long long factorial(unsigned n) {
+    long long res = 1;
+    for (unsigned i = 1; i < n; i++)
+        res *= i;
+    return res;
 }

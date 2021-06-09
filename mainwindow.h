@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void check();
 
 private slots:
     void on_digitsBtnGroup_buttonClicked(QAbstractButton * button);
@@ -48,6 +49,10 @@ private slots:
     void get_res();
 
     void getConst();
+
+    void fact();
+
+    void module();
 
 private:
     Ui::MainWindow *ui;

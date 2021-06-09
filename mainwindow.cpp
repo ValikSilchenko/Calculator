@@ -17,11 +17,38 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->binaryBtnGroup, SIGNAL(buttonClicked(QAbstractButton*)), this, SLOT(binary(QAbstractButton*)));
     connect(ui->piButton, SIGNAL(clicked()), this, SLOT(getConst()));
     connect(ui->eButton, SIGNAL(clicked()), this, SLOT(getConst()));
+    connect(ui->factButton, SIGNAL(clicked()),this, SLOT(fact()));
+    connect(ui->moduleButton, SIGNAL(clicked()), this, SLOT(module()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::check() {
+    if (ui->label->text() == "error") on_clearButton_clicked();
+
+    if (resPressed) {
+        ui->optLabel->clear();
+        sign = "";
+        f = false;
+        resPressed = false;
+        expression = ui->label->text();
+    }
+
+    if (specialBtnPressed) {
+        double tempRes = ui->label->text().toDouble();
+        on_clearButton_clicked();
+        ui->label->setText(QString::number(tempRes));
+        expression = ui->label->text();
+    }
+
+    if (ui->optLabel->text() != "")  // getting sign if it's not in variable
+        if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
+            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+            expression = ui->optLabel->text() + ui->label->text();
+        }
 }
 
 void MainWindow::binary(QAbstractButton * button){
@@ -203,7 +230,7 @@ void MainWindow::on_sqrtButton_clicked()
         expression = ui->label->text();
     }
 
-    if (ui->optLabel->text() != "")  // getting sugn if it's not in variable
+    if (ui->optLabel->text() != "")  // getting sign if it's not in variable
         if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
             sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
             expression = ui->optLabel->text() + ui->label->text();
@@ -244,7 +271,7 @@ void MainWindow::on_sqrButton_clicked()
         expression = ui->label->text();
     }
 
-    if (specialBtnPressed || specialBtnPressed || specialBtnPressed) {
+    if (specialBtnPressed) {
         double tempRes = ui->label->text().toDouble();
         on_clearButton_clicked();
         ui->label->setText(QString::number(tempRes));
@@ -438,4 +465,60 @@ void MainWindow::getConst(){
         expression += QString::number(M_E);
     }
 
+}
+
+void MainWindow::fact() {
+    if (ui->label->text() == "error") on_clearButton_clicked();
+
+    if (resPressed) {
+        ui->optLabel->clear();
+        sign = "";
+        f = false;
+        resPressed = false;
+        expression = ui->label->text();
+    }
+
+    if (specialBtnPressed) {
+        double tempRes = ui->label->text().toDouble();
+        on_clearButton_clicked();
+        ui->label->setText(QString::number(tempRes));
+        expression = ui->label->text();
+    }
+
+    if (ui->optLabel->text() != "")  // getting sign if it's not in variable
+        if (!("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1] && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
+            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+            expression = ui->optLabel->text() + ui->label->text();
+        }
+
+    if (ui->label->text()[0] == "-" || ui->label->text().contains(".")) {
+        on_clearButton_clicked();
+        ui->label->setText("error");
+    } else {
+        if (sign == "") sum = factorial(ui->label->text().toUInt());
+        else {
+            sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+            sum = simpleFunctions(sign, sum, factorial(ui->label->text().toUInt()));
+        }
+
+        expression = ui->optLabel->text() + "(" + ui->label->text() + ")!";
+        ui->label->setText(QString::number(factorial(ui->label->text().toUInt())));
+        ui->optLabel->setText(expression);
+    }
+    specialBtnPressed = true;
+}
+
+void MainWindow::module() {
+    check();
+
+    if (sign == "") sum = abs(ui->label->text().toDouble());
+    else {
+        sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+        sum = simpleFunctions(sign, sum, abs(ui->label->text().toDouble()));
+    }
+
+    expression = ui->optLabel->text() + "|" + ui->label->text() + "|";
+    ui->optLabel->setText(expression);
+
+    specialBtnPressed = true;
 }
