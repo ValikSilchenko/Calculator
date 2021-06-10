@@ -7,7 +7,7 @@ double simpleFunctions(QString sign, double first, double second) {
        if (sign == "-") return first - second ;
        if (sign == "×") return first * second ;
        if (sign == "÷") return first / second;
-       return 1;
+       return 1337;
 }
 
 unsigned long long factorial(unsigned n) {
@@ -17,6 +17,6 @@ unsigned long long factorial(unsigned n) {
     return res;
 }
 
-double normalRound(double num, unsigned k = 5) {
+double normalRound(double num, unsigned k = 8) {
     return round(num * pow(10, k)) / pow(10, k);
 }

@@ -76,8 +76,10 @@ private:
     QString expression = "";  // variable with all actions before clicking on 'resultButton'
     bool f = false;  // flag that indicates any of 'binaryButtons' is clicked
     bool resPressed = false;  // flag that indicates 'resultButton' is clicked
-    bool twoParamsBtnPressed = false;
+//    bool twoParamsBtnPressed = false;
     bool specialBtnPressed = false;
+    bool xInNPressed = false;
     double sum = 0;  // sum of all values entered before 'resultButton' is clicked
+    double xDeg = 0;
 };
 #endif // MAINWINDOW_H
