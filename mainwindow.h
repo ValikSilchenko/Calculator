@@ -72,6 +72,8 @@ private slots:
 
     void logX();
 
+    void xInNRoot();
+
 private:
     Ui::MainWindow *ui;
     QString sign = "";  // variable with sign value
@@ -82,8 +84,10 @@ private:
     bool specialBtnPressed = false;
     bool xInNPressed = false;
     bool logButtonPressed = false;
+    bool xInNRootPressed = false;
     double sum = 0;  // sum of all values entered before 'resultButton' is clicked
     double xDeg = 0;
     double xLog = 0;
+    double xRoot = 0;
 };
 #endif // MAINWINDOW_H

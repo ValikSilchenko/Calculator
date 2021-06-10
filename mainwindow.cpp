@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
         connect(ui->natLogButton, SIGNAL(clicked()), this, SLOT(ln()));
         connect(ui->powerButton, SIGNAL(clicked()), this, SLOT(xInN()));
         connect(ui->logButton, SIGNAL(clicked()), this, SLOT(logX()));
+        connect(ui->rootButton,SIGNAL(clicked()), this, SLOT(xInNRoot()));
     }
 }
 
@@ -67,7 +68,7 @@ void MainWindow::binary(QAbstractButton * button)
 {
     if (ui->label->text() == "error") on_clearButton_clicked();
 
-    if (ui->label->text().contains(".") && ! specialBtnPressed && ! f && ! xInNPressed){  // converting QString->Double->QString to exclude float value with zero or empty value after dot
+    if (ui->label->text().contains(".") && ! specialBtnPressed && ! f && ! xInNPressed && ! logButtonPressed){  // converting QString->Double->QString to exclude float value with zero or empty value after dot
         ui->label->setText(QString::number(ui->label->text().toDouble()));
         expression = ui->optLabel->text() + ui->label->text();
     }
@@ -100,6 +101,23 @@ void MainWindow::binary(QAbstractButton * button)
         }
     }
 
+    if (xInNRootPressed) {
+            expression = ui->optLabel->text();
+            expression.insert(expression.length() - 1, ui->label->text());
+
+            if (xRoot < 0) {
+                if (ui->label->text().toDouble() == ui->label->text().toInt()) {
+                    int temp = int(ui->label->text().toDouble());
+                    if(temp % 2 == 0) {
+                        on_clearButton_clicked();
+                        ui->label->setText("error");
+                        return;
+                    }
+                    ui->label->setText(QString::number(-normalRound(pow(abs(xRoot), 1.0/ ui->label->text().toDouble()))));
+                } else ui->label->setText(QString::number(-normalRound(pow(abs(xRoot), 1.0/ ui->label->text().toDouble()))));
+            } else ui->label->setText(QString::number(normalRound(pow(xRoot, 1.0/ ui->label->text().toDouble()))));
+        }
+
     if (ui->label->text() == "0" && expression == "") expression = "0";
 
     ui->optLabel->setText(expression + button->text());
@@ -120,6 +138,7 @@ void MainWindow::binary(QAbstractButton * button)
     specialBtnPressed = false;
     xInNPressed = false;
     logButtonPressed = false;
+    xInNRootPressed = false;
     f = true;
 }
 
@@ -130,7 +149,7 @@ void MainWindow::on_digitsBtnGroup_buttonClicked(QAbstractButton * button)
     if (expression == "" || ui->label->text() == "0") ui->label->clear();  // checking that entering value is first
     else  if (f)  {  // checking that binaryButton was clicked
         ui->label->clear();
-        if (!xInNPressed && !logButtonPressed) sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
+        if (!xInNPressed && !logButtonPressed && !xInNRootPressed) sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
         f = false;
     }
 
@@ -150,6 +169,7 @@ void MainWindow::on_clearButton_clicked()
     specialBtnPressed = false;
     xInNPressed = false;
     logButtonPressed = false;
+    xInNRootPressed = false;
     xDeg = 0;
     sum = 0;
     expression = "";
@@ -208,8 +228,28 @@ void MainWindow::getRes()
             else sum = simpleFunctions(sign, sum, ui->label->text().toDouble());
         }
 
+        if (xInNRootPressed) {
+                expression = ui->optLabel->text();
+                expression.insert(expression.length() - 1, ui->label->text());
+
+                if (xRoot < 0) {
+                    if (ui->label->text().toDouble() == ui->label->text().toInt()) {
+                        int temp = int(ui->label->text().toDouble());
+                        if(temp % 2 == 0) {
+                            on_clearButton_clicked();
+                            ui->label->setText("error");
+                            return;
+                        }
+                        ui->label->setText(QString::number(-normalRound(pow(abs(xRoot), 1.0/ ui->label->text().toDouble()))));
+                    } else ui->label->setText(QString::number(-normalRound(pow(abs(xRoot), 1.0/ ui->label->text().toDouble()))));
+                } else ui->label->setText(QString::number(normalRound(pow(xRoot, 1.0/ ui->label->text().toDouble()))));
+
+                if (sign == "") sum = ui->label->text().toDouble();
+                else sum = simpleFunctions(sign, sum, ui->label->text().toDouble());
+            }
+
         // getting last entered sign if it's not in variable
-        if (sign == "" && !(specialBtnPressed) && !(xInNPressed) && !(logButtonPressed)
+        if (sign == "" && !(specialBtnPressed) && !(xInNPressed) && !(logButtonPressed) && !(xInNRootPressed)
                 && !("0" <= ui->optLabel->text()[ui->optLabel->text().length() - 1]
                 && ui->optLabel->text()[ui->optLabel->text().length() - 1] <= "9")) {
             sign = ui->optLabel->text()[ui->optLabel->text().length() - 1];
@@ -217,11 +257,12 @@ void MainWindow::getRes()
         }
 
         // setting braces for numbers < 0
-        if (ui->label->text().toDouble() < 0 && ! specialBtnPressed && ! xInNPressed && ! logButtonPressed) expression = ui->optLabel->text() + "(" + ui->label->text() + ")";
+        if (ui->label->text().toDouble() < 0 && ! specialBtnPressed && ! xInNPressed
+                && ! logButtonPressed && ! xInNRootPressed) expression = ui->optLabel->text() + "(" + ui->label->text() + ")";
 
         ui->optLabel->setText(expression);
 
-        if (! specialBtnPressed && ! xInNPressed && ! logButtonPressed)
+        if (! specialBtnPressed && ! xInNPressed && ! logButtonPressed && ! xInNRootPressed)
             if (sign == "÷" && ui->label->text() == "0") {  // checking for dividing by zero
                 on_clearButton_clicked();
                 ui->label->setText("error");
@@ -231,7 +272,8 @@ void MainWindow::getRes()
         }
 
         if (!(ui->label->text() == "error")) {
-            if (sign == "" && !(specialBtnPressed) && !(xInNPressed) && !(logButtonPressed))  ui->optLabel->setText(ui->optLabel->text() + ui->label->text());
+            if (sign == "" && !(specialBtnPressed) && !(xInNPressed)
+                    && !(logButtonPressed) && !(xInNRootPressed))  ui->optLabel->setText(ui->optLabel->text() + ui->label->text());
 
             ui->optLabel->setText(ui->optLabel->text() + "=");
             ui->label->setText(QString::number(sum));
@@ -241,6 +283,7 @@ void MainWindow::getRes()
         specialBtnPressed = false;
         xInNPressed = false;
         logButtonPressed = false;
+        xInNRootPressed = false;
     }
     resPressed = true;
 }
@@ -509,7 +552,7 @@ void MainWindow::getConst()
 
 void MainWindow::fact()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (ui->label->text()[0] == "-" || ui->label->text().contains(".")) {
@@ -531,7 +574,7 @@ void MainWindow::fact()
 }
 
 void MainWindow::module()
-{   if (! xInNPressed) {
+{   if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (sign == "") sum = abs(ui->label->text().toDouble());
@@ -550,7 +593,7 @@ void MainWindow::module()
 
 void MainWindow::cube()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (sign == "") sum = pow(ui->label->text().toDouble(), 3);  // checking if only one number entered
@@ -571,7 +614,7 @@ void MainWindow::cube()
 
 void MainWindow::cubeRoot()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         double temp = abs(ui->label->text().toDouble());
@@ -611,7 +654,7 @@ void MainWindow::cubeRoot()
 
 void MainWindow::tenInN()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (sign == "") sum = pow(10, ui->label->text().toDouble());  // checking if only one number entered
@@ -630,7 +673,7 @@ void MainWindow::tenInN()
 
 void MainWindow::eInN()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (sign == "") sum = pow(M_E, ui->label->text().toDouble());  // checking if only one number entered
@@ -649,7 +692,7 @@ void MainWindow::eInN()
 
 void MainWindow::twoInN()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (sign == "") sum = pow(2, ui->label->text().toDouble());  // checking if only one number entered
@@ -668,7 +711,7 @@ void MainWindow::twoInN()
 
 void MainWindow::xInN()
 {
-    if (!xInNPressed) {
+    if (!xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         xDeg = ui->label->text().toDouble();
@@ -681,7 +724,7 @@ void MainWindow::xInN()
 
 void MainWindow::ln()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (ui->label->text().toDouble() > 0 ) {  // checking for a negaive number in ln
@@ -710,7 +753,7 @@ void MainWindow::ln()
 
 void MainWindow::lg()
 {
-    if (! xInNPressed) {
+    if (! xInNPressed && ! logButtonPressed && !xInNRootPressed) {
         check();
 
         if (ui->label->text().toDouble() > 0 ) {  // checking for a negaive number in ln
@@ -739,17 +782,32 @@ void MainWindow::lg()
 
 void MainWindow::logX()
 {
-    check();
+    if (!xInNPressed && ! logButtonPressed && !xInNRootPressed) {
+        check();
 
-    if (ui->label->text().toDouble() > 0)
-        xLog = ui->label->text().toDouble();
-    else {
-        on_clearButton_clicked();
-        ui->label->setText("error");
-        return;
+        if (ui->label->text().toDouble() > 0)
+            xLog = ui->label->text().toDouble();
+        else {
+            on_clearButton_clicked();
+            ui->label->setText("error");
+            return;
+        }
+        logButtonPressed = true;
+        f = true;
+        expression = ui->optLabel->text() + "(" + ui->label->text() + " log base )";
+        ui->optLabel->setText(expression);
     }
-    logButtonPressed = true;
-    f = true;
-    expression = ui->optLabel->text() + "(" + ui->label->text() + " log base )";
-    ui->optLabel->setText(expression);
+}
+
+void MainWindow::xInNRoot()
+{
+    if (!xInNPressed && ! logButtonPressed && !xInNRootPressed) {
+        check();
+
+        xRoot = ui->label->text().toDouble();
+        xInNRootPressed = true;
+        f = true;
+        expression = ui->optLabel->text() + "(" + ui->label->text() + " nroot )";
+        ui->optLabel->setText(expression);
+    }
 }
