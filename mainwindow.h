@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void check();
 
 private slots:
     void on_digitsBtnGroup_buttonClicked(QAbstractButton * button);
@@ -23,9 +24,7 @@ private slots:
 
     void on_delLastSymbBtn_clicked();
 
-    void on_binaryBtnGroup_buttonClicked(QAbstractButton * button);
-
-    void on_resultButton_clicked();
+    void binary(QAbstractButton * button);
 
     void on_negativeButton_clicked();
 
@@ -47,15 +46,48 @@ private slots:
 
     void on_pushButton_switchToMain_clicked();
 
+    void getRes();
+
+    void getConst();
+
+    void fact();
+
+    void module();
+
+    void tenInN();
+
+    void eInN();
+
+    void xInN();
+
+    void twoInN();
+
+    void cube();
+
+    void cubeRoot();
+
+    void ln();
+
+    void lg();
+
+    void logX();
+
+    void xInNRoot();
+
 private:
     Ui::MainWindow *ui;
     QString sign = "";  // variable with sign value
     QString expression = "";  // variable with all actions before clicking on 'resultButton'
     bool f = false;  // flag that indicates any of 'binaryButtons' is clicked
     bool resPressed = false;  // flag that indicates 'resultButton' is clicked
-    bool sqrtPressed = false;  // flag that indicates 'sqrtButton' is clicked
-    bool sqrPressed = false;  // flag that indicates 'sqrButton' is clicked
-    bool reversePressed = false;  // flag that indicates 'reverseButton' is clicked
+//    bool twoParamsBtnPressed = false;
+    bool specialBtnPressed = false;
+    bool xInNPressed = false;
+    bool logButtonPressed = false;
+    bool xInNRootPressed = false;
     double sum = 0;  // sum of all values entered before 'resultButton' is clicked
+    double xDeg = 0;
+    double xLog = 0;
+    double xRoot = 0;
 };
 #endif // MAINWINDOW_H
